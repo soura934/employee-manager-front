@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public onModalOpen(status: string, employee?: Employee): void {
+  onModalOpen(status: string, employee?: Employee): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -86,5 +86,25 @@ export class AppComponent implements OnInit {
         alert(err.message);
       },
     });
+  }
+
+  searchEmployees(key: string): void {
+    const results: Employee[] = [];
+
+    for (let employee of this.employees) {
+      if (
+        employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      ) {
+        results.push(employee);
+      }
+    }
+
+    this.employees = results;
+    if (results.length === 0 || !key) {
+      this.getEmployees();
+    }
   }
 }
