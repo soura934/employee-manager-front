@@ -7,12 +7,12 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link">Add Employee</a>
+        <a class="nav-link" (click)="onModalOpen('add')">Add Employee</a>
       </li>
     </ul>
   </div>
 </nav>
-<div class="container">
+<div class="container" id="main-container">
   <div class="row">
     <div *ngFor="let employee of employees" class="col-md-4">
       <div class="card user-card">
@@ -29,6 +29,132 @@
           <p class="text-muted m-t-15">{{employee?.email}}</p>
           <p class="m-t-15 text-muted">{{employee?.phone}}</p>
           <hr>
+        </div>
+        <div class="card-body">
+          <div class="float-right btn-group btn-group-sm">
+            <a (click)="onModalOpen('edit', employee)" class="btn btn-primary tooltips" data-placement="top"
+              data-original-title="Edit">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a (click)="onModalOpen('delete', employee)" class="btn btn-secondary tooltips" data-placement="top"
+              data-original-title="Delete">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--add-->
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Job title</label>
+              <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Image URL</label>
+              <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL"
+                required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit -->
+  <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
+                placeholder="Name">
+            </div>
+            <input type="hidden" name="id" class="form-control" id="id" placeholder="Email">
+            <input type="hidden" name="userCode" class="form-control" id="userCode" placeholder="Email">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Job title</label>
+              <input type="text" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
+            </div>
+            <div class="form-group">
+              <label for="phone">Image URL</label>
+              <input type="text" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button data-dismiss="modal" class="btn btn-primary">Save
+                changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete -->
+  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete employee </p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button class="btn btn-danger" data-dismiss="modal">Yes</button>
+          </div>
         </div>
       </div>
     </div>
